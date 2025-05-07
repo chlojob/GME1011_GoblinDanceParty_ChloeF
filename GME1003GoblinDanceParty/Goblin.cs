@@ -12,7 +12,7 @@ namespace GME1003GoblinDanceParty
         private Vector2 _position;
 
         private int timeSinceLastFrame = 0;
-        private int millisecondsPerFrame = 65;
+        private int millisecondsPerFrame = 30;
 
         private SpriteEffects _faceLeft = SpriteEffects.FlipHorizontally;
         private int _faceLeftCount = 0;
@@ -24,7 +24,7 @@ namespace GME1003GoblinDanceParty
 
             _currentFrame = 0;
             _cols = 8;
-            _rows = 1;
+            _rows = 11;
         }
 
         public void Update(GameTime gameTime)
@@ -47,7 +47,7 @@ namespace GME1003GoblinDanceParty
             {
                 timeSinceLastFrame -= millisecondsPerFrame;
                 _currentFrame++;
-                if (_currentFrame == _cols)
+                if (_currentFrame == _cols * _rows)
                     _currentFrame = 0;
             }
         }
@@ -58,14 +58,14 @@ namespace GME1003GoblinDanceParty
 
             int width = _goblinSprite.Width / _cols;
             int height = _goblinSprite.Height / _rows;
-            int row = 0;
-            int column = _currentFrame;
+            int row = _currentFrame / _cols;
+            int column = _currentFrame % _cols;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             //Rectangle destinationRectangle = new Rectangle((int)_position.X, (int)_position.Y, width, height);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
-            spriteBatch.Draw(_goblinSprite, _position, sourceRectangle, Color.White, 0, new Vector2(width / 2, height / 2), new Vector2(5, 5), _faceLeft, 0);
+            spriteBatch.Draw(_goblinSprite, _position, sourceRectangle, Color.White, 0, new Vector2(width / 2, height / 2), new Vector2(2.5f, 2.5f), _faceLeft, 0);
             spriteBatch.End();
         }
 
