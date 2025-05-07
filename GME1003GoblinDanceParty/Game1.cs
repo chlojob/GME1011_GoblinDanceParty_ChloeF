@@ -18,12 +18,12 @@ namespace GME1003GoblinDanceParty
         private List<int> _starsY;      //list of star y-coordinates
         private List<float> _starRotation; //list of star rotations
         private List<float> _starTransparency; //list of star transparencies
+        private List<float> _starScale; //list of star sizes
 
         private Texture2D _starSprite;  //the sprite image for our star
 
         private Random _rng;            //for all our random number needs
         private Color _starColor;       //let's have fun with colour!!
-        private float _starScale;       //star size
 
 
         //***This is for the goblin. Ignore it.
@@ -46,9 +46,9 @@ namespace GME1003GoblinDanceParty
             _starsY = new List<int>();  //stars Y coordinate
             _starRotation = new List<float>(); // star rotation
             _starTransparency = new List<float>(); // star transparency
+            _starScale = new List<float>();
 
             _starColor = new Color(128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129));                   //this is a "relatively" easy way to create random colors
-            _starScale = _rng.Next(50, 100) / 200f; //this will affect the size of the stars
 
             //use a separate for loop for each list - for practice
             //List of X coordinates
@@ -65,7 +65,10 @@ namespace GME1003GoblinDanceParty
 
             //ToDo: List of Colors
 
-            //ToDo: List of scale values
+            for (int i = 0; i <= _numStars; i++)
+            {
+                _starScale.Add(_rng.Next(50, 100) / 200f);
+            }
 
             for (int i = 0; i < _numStars; i++)
             {
@@ -129,7 +132,7 @@ namespace GME1003GoblinDanceParty
                     _starColor * _starTransparency[i],         //set colour and transparency
                     _starRotation[i],                          //set rotation
                     new Vector2(_starSprite.Width / 2, _starSprite.Height / 2), //ignore this
-                    new Vector2(_starScale, _starScale),    //set scale (same number 2x)
+                    new Vector2(_starScale[i], _starScale[i]),    //set scale (same number 2x)
                     SpriteEffects.None,                     //ignore this
                     0f);                                    //ignore this
             }
